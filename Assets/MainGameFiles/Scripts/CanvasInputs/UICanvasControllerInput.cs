@@ -1,9 +1,13 @@
 using UnityEngine;
+using UnityEngine.UI;
 
 namespace StarterAssets
 {
     public class UICanvasControllerInput : MonoBehaviour
     {
+        [SerializeField] private Camera _inventoryCamera;
+        [SerializeField] private Canvas _inventoryCanvas;
+        [SerializeField] private Canvas _mainVirtualController;
 
         [Header("Output")]
         public StarterAssetsInputs starterAssetsInputs;
@@ -26,6 +30,13 @@ namespace StarterAssets
         public void VirtualSprintInput(bool virtualSprintState)
         {
             starterAssetsInputs.SprintInput(virtualSprintState);
+        }
+
+        public void OpenInventory()
+        {
+            _inventoryCamera.gameObject.SetActive(true);
+            _inventoryCanvas.enabled = true;
+            _mainVirtualController.enabled = false;
         }
         
     }
