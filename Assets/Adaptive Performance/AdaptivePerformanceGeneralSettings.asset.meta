@@ -1,9 +1,8 @@
 fileFormatVersion: 2
-guid: f528363d2aaa5d748ab9fcd16b601236
-labels:
-- Weapon
-PrefabImporter:
+guid: 803f74e54dabc6347ae231e9642f169c
+NativeFormatImporter:
   externalObjects: {}
+  mainObjectFileID: 11400000
   userData: 
   assetBundleName: 
   assetBundleVariant: 

@@ -3,47 +3,46 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
-public class UIInventorySlot : UISlot
+public class UIInventoryEquipmentSlot : UIInventorySlot
 {
-    [SerializeField] protected UIInventoryItem _uiInventoryItem;
-    [SerializeField] protected InventoryManager _inventoryManager;
-    [SerializeField] protected bool _gunSlot;
-
-    public IInventorySlot slot { get; protected set; }
-
-    protected UIPlayerInventory _uiInventory;
-    protected InventoryWithSlots _inventory;
-
     private void Start()
     {
         _uiInventory = _inventoryManager.playerInventory;
-        
     }
 
-    public virtual void SetSlot(IInventorySlot newSlot)
+    public override void SetSlot(IInventorySlot newSlot)
     {
         slot = newSlot;
     }
 
     public override void OnDrop(PointerEventData eventData)
     {
+        bool otherSlotIsEquipment = false;
         _inventory = _inventoryManager.inventory;
         var otherItemUI = eventData.pointerDrag.GetComponent<UIInventoryItem>();
-        var otherSlotUI = otherItemUI.GetComponentInParent<UIInventorySlot>();
+        var otherSlotUI = otherItemUI?.GetComponentInParent<UIInventorySlot>();
+        if(otherSlotUI == null)
+        {
+            otherItemUI?.GetComponentInParent<UIInventoryEquipmentSlot>();
+            otherSlotIsEquipment = true;
+        }
+            
         var otherSlot = otherSlotUI.slot;
         var inventory = _inventory;
 
-        if(otherSlot == slot)
-        {
+        if (otherSlot == slot)
             return;
+
+        if(!otherSlotIsEquipment)
+        {
+            inventory.TransitFromSlotToEquipmentSlot(this, otherSlot, slot);
         }
-        inventory.TransitFromSlotToSlot(this, otherSlot, slot);
 
         Refresh();
         otherSlotUI.Refresh();
     }
 
-    public virtual void Refresh()
+    public override void Refresh()
     {
         if (slot != null)
             _uiInventoryItem?.Refresh(slot);

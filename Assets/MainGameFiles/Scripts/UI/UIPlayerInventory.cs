@@ -8,21 +8,23 @@ public class UIPlayerInventory
     private InventoryItemInfo _pistolInfo;
     private InventoryItemInfo _appleInfo;
     private InventoryItemInfo _pepperInfo;
+    private int _capacity;
 
     private UIInventorySlot[] _uiSlots;
 
-    private int _capacity = 21;
-
     public InventoryWithSlots inventory { get; }
+    public UIInventorySlot[] uiSlots => _uiSlots;
+    public bool isChest => !(_capacity >= 21);
 
-    public UIPlayerInventory(InventoryItemInfo appleInfo, InventoryItemInfo peppeInfo, UIInventorySlot[] uiSlots, List<InventoryItemInfo> itemsInfo, InventoryItemInfo pistolInfo)
+    public UIPlayerInventory(InventoryItemInfo appleInfo, InventoryItemInfo peppeInfo, UIInventorySlot[] uiSlots, int capacity, InventoryItemInfo pistolInfo)
     {
         _pistolInfo = pistolInfo;
         _appleInfo = appleInfo;
         _pepperInfo = peppeInfo;
         _uiSlots = uiSlots;
+        _capacity = capacity;
 
-        inventory = new InventoryWithSlots(_capacity);
+        inventory = new InventoryWithSlots(capacity);
         inventory.OnInventoryStateChangedEvent += OnInventoryStateChanged;
 
     }
@@ -44,7 +46,7 @@ public class UIPlayerInventory
         var pistol = new Pistol(_pistolInfo);
         pistol.state.amount = 1;
         inventory.TryAddToSlot(this, allSlots[5], pistol);
-        
+
         /*
         var availableSlots = new List<IInventorySlot>(allSlots);
 
@@ -58,6 +60,8 @@ public class UIPlayerInventory
             availableSlots.Remove(filledSlot);
         }*/
 
+        if (isChest)
+            return;
         SetupInventoryUI(inventory);
     }
 
@@ -83,7 +87,7 @@ public class UIPlayerInventory
         return rSlot;
     }
 
-    private void SetupInventoryUI(InventoryWithSlots inventory)
+    public void SetupInventoryUI(InventoryWithSlots inventory)
     {
         var allSlots = inventory.GetAllSlots();
         var allSlotsCount = allSlots.Length;
@@ -97,7 +101,7 @@ public class UIPlayerInventory
     }
 
 
-    private void OnInventoryStateChanged(object sender)
+    public void OnInventoryStateChanged(object sender)
     {   
         foreach (var uiSlot in _uiSlots)
         {

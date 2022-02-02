@@ -12,11 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4de868719b8a15b4b9f0825da4f6d1be, type: 3}
   m_Name: Pistol
   m_EditorClassIdentifier: 
-  _id: pistol
-  _title: Pistol
-  _desctiption: gun
+  _id: 312
+  _title: gun
+  _desctiption: pistol
   _maxItemsInInventorySlot: 1
-  _spriteIcon: {fileID: 10901, guid: 0000000000000000f000000000000000, type: 0}
-  _isGun: 1
+  _spriteIcon: {fileID: 21300000, guid: 12a29ca33b5ef0447a04b05ddda7ff11, type: 3}
   _prefab: {fileID: 1121525155587680, guid: c6865c562fd3f2841a92dc0cbbd6b4b4, type: 3}
   _itemType: 1

@@ -5,9 +5,9 @@ using UnityEngine.EventSystems;
 
 public class UIItem : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndDragHandler
 {
-    private CanvasGroup _canvasGroup;
+    protected CanvasGroup _canvasGroup;
     private Canvas _mainCanvas;
-    private RectTransform _rectTransform;
+    protected RectTransform _rectTransform;
 
     private void Start()
     {
@@ -16,12 +16,13 @@ public class UIItem : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndDragHa
         _canvasGroup = GetComponent<CanvasGroup>();
     }
 
-    public void OnBeginDrag(PointerEventData eventData)
+    public virtual void OnBeginDrag(PointerEventData eventData)
     {
         var slotTransform = _rectTransform.parent;
         slotTransform.SetAsLastSibling();
         _canvasGroup.blocksRaycasts = false;
     }
+
 
     public void OnDrag(PointerEventData eventData)
     {

@@ -29,7 +29,11 @@ public class InventoryWithSlots : IInventory
                _slots.Add(new InventorySlot());
         }
 
-        _slots[20].slotType = SlotType.Gun;
+        if(capacity >= 21)
+        {
+            _slots[20].slotType = SlotType.Gun; // 21 слот в иерархиии юнити (внизу)
+        }
+        
     }
 
     public IInventoryItem[] GetAllItems()
@@ -169,6 +173,66 @@ public class InventoryWithSlots : IInventory
         OnInventoryStateChangedEvent?.Invoke(sender);
     }
 
+    public void TransitFromSlotToEquipmentSlot(object sender, IInventorySlot fromSlot, IInventorySlot toSlot)
+    {
+        if (fromSlot.isEmpty)
+            return;
+        if (toSlot.isFull)
+            return;
+        if (fromSlot.item.info.itemType == ItemType.Default)
+            return;
+
+        if (toSlot.isEmpty)
+        {
+            if (toSlot.slotType != SlotType.Default)
+            {
+                // экипировка оружие в оружейный слот
+                if (fromSlot.item.info.itemType == ItemType.Gun && toSlot.slotType == SlotType.Gun)
+                {
+                    EquipOrDeEquipGun(sender, fromSlot, toSlot, fromSlot.item.state.IsEquipped);
+                    return;
+                }
+
+                // попытка экипировать не оружие, в оружейный слот
+                //if (fromSlot.item.info.itemType != ItemType.Gun && toSlot.slotType == SlotType.Gun)
+                //return;
+                if (((int)fromSlot.item.info.itemType) != ((int)toSlot.slotType))
+                    return;
+
+            }
+        }
+
+        {
+            /*if (toSlot.isEmpty) todo: Реализация экипирования оставшихся видов предметов
+                    {
+                        if (toSlot.slotType != SlotType.Default)
+                        {
+                            if (fromSlot.item.info.itemType == ItemType.Default)
+                                return;
+
+                            // экипировка уникального предмета в такой же уникальный слот
+                            if (((int)fromSlot.item.info.itemType) == ((int)toSlot.slotType))
+                            {
+                                //Equip
+                                return;
+                            }
+
+                            // попытка экипировать не оружие, в оружейный слот
+                            if (((int)fromSlot.item.info.itemType) != ((int)toSlot.slotType))
+                                return;
+                        }
+
+                        // Снять экипированный предмет
+                        if (fromSlot.item.info.itemType != ItemType.Default && fromSlot.item.state.IsEquipped)
+                        {
+                            //DeEquip
+                            return;
+                        }
+                    }*/
+        } // Альтернативная реализация сравнение, с помощью enum
+
+    }
+
     public void TransitFromSlotToSlot(object sender, IInventorySlot fromSlot, IInventorySlot toSlot)
     {
         if (fromSlot.isEmpty)
@@ -176,58 +240,13 @@ public class InventoryWithSlots : IInventory
         if (toSlot.isFull)
             return;
 
-      /*if (toSlot.isEmpty) todo: Реализация экипирования оставшихся видов предметов
+        // Снять экипированое оружие
+        if (fromSlot.item.info.itemType == ItemType.Gun && fromSlot.item.state.IsEquipped)
         {
-            if (toSlot.slotType != SlotType.Default)
-            {
-                if (fromSlot.item.info.itemType == ItemType.Default)
-                    return;
-
-                // экипировка уникального предмета в такой же уникальный слот
-                if (((int)fromSlot.item.info.itemType) == ((int)toSlot.slotType))
-                {
-                    //Equip
-                    return;
-                }
-
-                // попытка экипировать не оружие, в оружейный слот
-                if (((int)fromSlot.item.info.itemType) != ((int)toSlot.slotType))
-                    return;
-            }
-
-            // Снять экипированный предмет
-            if (fromSlot.item.info.itemType != ItemType.Default && fromSlot.item.state.IsEquipped)
-            {
-                //DeEquip
+            if (!toSlot.isEmpty)
                 return;
-            }
-        }*/
-
-        if (toSlot.isEmpty)
-        {
-            if (toSlot.slotType != SlotType.Default)
-            {
-                if (fromSlot.item.info.itemType == ItemType.Default)
-                    return;
-
-                // экипировка оружие в оружейный слот
-                if (fromSlot.item.info.itemType == ItemType.Gun && toSlot.slotType == SlotType.Gun) 
-                {
-                    EquipOrDeEquipGun(sender, fromSlot, toSlot, fromSlot.item.state.IsEquipped);
-                    return;
-                }
-
-                // попытка экипировать не оружие, в оружейный слот
-                if (fromSlot.item.info.itemType != ItemType.Gun && toSlot.slotType == SlotType.Gun)
-                    return;
-            }
-
-            // Снять экипированое оружие
-            if (fromSlot.item.info.itemType == ItemType.Gun && fromSlot.item.state.IsEquipped)
-            {
-                EquipOrDeEquipGun(sender, fromSlot, toSlot, fromSlot.item.state.IsEquipped);
-                return;
-            }
+            EquipOrDeEquipGun(sender, fromSlot, toSlot, fromSlot.item.state.IsEquipped);
+            return;
         }
 
         if (!toSlot.isEmpty && fromSlot.itemType != toSlot.itemType)
