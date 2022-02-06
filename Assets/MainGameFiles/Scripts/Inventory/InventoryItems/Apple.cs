@@ -1,28 +1,28 @@
 using System;
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+using MainGameFiles.Scripts.Interfaces;
 
-
-public class Apple : IInventoryItem
+namespace MainGameFiles.Scripts.Inventory.InventoryItems
 {
-    public Type type => GetType();
+    public class Apple : IInventoryItem
+    {
+        public Type type => GetType();
 
-    public IInventoryItemState state { get; }
-    public IInventoryItemInfo info { get; }
+        public IInventoryItemState state { get; }
+        public IInventoryItemInfo info { get; }
     
 
-    public Apple(IInventoryItemInfo info)
-    {
-        this.info = info;
-        state = new InventoryItemState();
-    }
+        public Apple(IInventoryItemInfo info)
+        {
+            this.info = info;
+            state = new InventoryItemState();
+        }
 
-    public IInventoryItem Clone()
-    {
-        var clonedApple = new Apple(info);
-        clonedApple.state.amount = state.amount;
-        return clonedApple;
+        public IInventoryItem Clone()
+        {
+            var clonedApple = new Apple(info);
+            clonedApple.state.amount = state.amount;
+            return clonedApple;
+        }
     }
 }
 

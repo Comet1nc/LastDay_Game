@@ -1,24 +1,26 @@
 using System;
-using System.Collections.Generic;
-using UnityEngine;
+using MainGameFiles.Scripts.Interfaces;
 
-public class Pistol : IInventoryItem
+namespace MainGameFiles.Scripts.Inventory.InventoryItems
 {
-    public Type type => GetType();
-
-    public IInventoryItemState state { get; }
-    public IInventoryItemInfo info { get; }
-
-    public Pistol(IInventoryItemInfo info)
+    public class Pistol : IInventoryItem
     {
-        this.info = info;
-        state = new InventoryItemState();
-    }
+        public Type type => GetType();
 
-    public IInventoryItem Clone()
-    {
-        var clonedPistol = new Pistol(info);
-        clonedPistol.state.amount = state.amount;
-        return clonedPistol;
+        public IInventoryItemState state { get; }
+        public IInventoryItemInfo info { get; }
+
+        public Pistol(IInventoryItemInfo info)
+        {
+            this.info = info;
+            state = new InventoryItemState();
+        }
+
+        public IInventoryItem Clone()
+        {
+            var clonedPistol = new Pistol(info);
+            clonedPistol.state.amount = state.amount;
+            return clonedPistol;
+        }
     }
 }

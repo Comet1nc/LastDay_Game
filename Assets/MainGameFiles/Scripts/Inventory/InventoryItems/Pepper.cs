@@ -1,25 +1,26 @@
 using System;
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+using MainGameFiles.Scripts.Interfaces;
 
-public class Pepper : IInventoryItem
+namespace MainGameFiles.Scripts.Inventory.InventoryItems
 {
-    public Type type => GetType();
-
-    public IInventoryItemState state { get; }
-    public IInventoryItemInfo info { get; }
-
-    public Pepper(IInventoryItemInfo info)
+    public class Pepper : IInventoryItem
     {
-        this.info = info;
-        state = new InventoryItemState();
-    }
+        public Type type => GetType();
 
-    public IInventoryItem Clone()
-    {
-        var clonedPepper = new Pepper(info);
-        clonedPepper.state.amount = state.amount;
-        return clonedPepper;
+        public IInventoryItemState state { get; }
+        public IInventoryItemInfo info { get; }
+
+        public Pepper(IInventoryItemInfo info)
+        {
+            this.info = info;
+            state = new InventoryItemState();
+        }
+
+        public IInventoryItem Clone()
+        {
+            var clonedPepper = new Pepper(info);
+            clonedPepper.state.amount = state.amount;
+            return clonedPepper;
+        }
     }
 }

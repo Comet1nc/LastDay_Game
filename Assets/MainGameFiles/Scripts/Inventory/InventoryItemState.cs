@@ -1,20 +1,26 @@
 using System;
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+using MainGameFiles.Scripts.Interfaces;
 
-[Serializable]
-public class InventoryItemState : IInventoryItemState
+namespace MainGameFiles.Scripts.Inventory
 {
-    public int itemAmount;
-    public bool isItemEquipped;
-
-    public int amount { get => itemAmount; set => itemAmount = value; }
-    public bool IsEquipped { get => isItemEquipped; set => isItemEquipped = value; }
-
-    public InventoryItemState()
+    [Serializable]
+    public class InventoryItemState : IInventoryItemState
     {
-        itemAmount = 0;
-        isItemEquipped = false;
+        public int itemAmount;
+        public bool isItemEquipped;
+
+        public int amount { get => itemAmount; set => itemAmount = value; }
+        public bool IsEquipped { get => isItemEquipped; set => isItemEquipped = value; }
+
+        public InventoryItemState()
+        {
+            itemAmount = 0;
+            isItemEquipped = false;
+        }
+        public InventoryItemState(int itemAmount, bool isItemEquipped = false)
+        {
+            this.itemAmount = itemAmount;
+            this.isItemEquipped = isItemEquipped;
+        }
     }
 }

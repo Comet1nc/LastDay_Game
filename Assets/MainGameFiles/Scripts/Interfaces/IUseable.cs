@@ -1,4 +1,7 @@
-﻿public interface IUseable
+﻿namespace MainGameFiles.Scripts.Interfaces
 {
-    public void Use();
+    public interface IUseable
+    {
+        public void Use();
+    }
 }

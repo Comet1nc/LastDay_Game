@@ -2,25 +2,28 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public interface IInventoryItemInfo
+namespace MainGameFiles.Scripts.Interfaces
 {
-    string id { get; }
-    string title { get; }
-    string desctiption { get; }
-    int maxItemsInInventorySlot { get; }
-    Sprite spriteIcon { get; }
-    GameObject prefab { get; }
-    ItemType itemType { get; }
+    public interface IInventoryItemInfo
+    {
+        string id { get; }
+        string title { get; }
+        string desctiption { get; }
+        int maxItemsInInventorySlot { get; }
+        Sprite spriteIcon { get; }
+        GameObject prefab { get; }
+        ItemType itemType { get; }
 
-}
+    }
 
-public enum ItemType // NEVER CHANGE
-{
-    Default,
-    Gun,
-    Backpack,
-    Hat, // Головной убор
-    Shirt, // Верхняя одежда
-    Jeans, // Любые штаны
-    Boots // Любые ботинки
+    public enum ItemType // NEVER CHANGE
+    {
+        Default,
+        Gun,
+        Backpack,
+        Hat, // Р“РѕР»РѕРІРЅРѕР№ СѓР±РѕСЂ
+        Shirt, // Р’РµСЂС…РЅСЏСЏ РѕРґРµР¶РґР°
+        Jeans, // Р›СЋР±С‹Рµ С€С‚Р°РЅС‹
+        Boots // Р›СЋР±С‹Рµ Р±РѕС‚РёРЅРєРё
+    }
 }

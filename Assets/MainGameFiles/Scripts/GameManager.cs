@@ -1,10 +1,11 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
-public class GameManager : MonoBehaviour
+namespace MainGameFiles.Scripts
 {
+    public class GameManager : MonoBehaviour
+    {
     
+    }
 }
 
 

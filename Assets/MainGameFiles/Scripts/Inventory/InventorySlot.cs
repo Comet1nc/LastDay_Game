@@ -1,37 +1,38 @@
 using System;
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+using MainGameFiles.Scripts.Interfaces;
 
-public class InventorySlot : IInventorySlot
+namespace MainGameFiles.Scripts.Inventory
 {
-    public bool isGunSlot { get; set; }
-    public bool isFull => !isEmpty && amount == capacity;
-    public bool isEmpty => item == null;
-
-    public IInventoryItem item { get; private set; }
-    public SlotType slotType { get; set; }
-
-    public Type itemType => item.type;
-
-    public int amount => isEmpty ? 0 : item.state.amount;
-    public int capacity { get; private set; }
-
-    public void SetItem(IInventoryItem item)
+    public class InventorySlot : IInventorySlot
     {
-        if (!isEmpty)
-            return;
+        public bool isGunSlot { get; set; }
+        public bool isFull => !isEmpty && amount == capacity;
+        public bool isEmpty => item == null;
 
-        this.item = item;
-        this.capacity = item.info.maxItemsInInventorySlot;
-    } 
+        public IInventoryItem item { get; private set; }
+        public SlotType slotType { get; set; }
 
-    public void Clear()
-    {
-        if (isEmpty) 
-            return;
+        public Type itemType => item.type;
 
-        item.state.amount = 0;
-        item = null;
+        public int amount => isEmpty ? 0 : item.state.amount;
+        public int capacity { get; private set; }
+
+        public void SetItem(IInventoryItem item)
+        {
+            if (!isEmpty)
+                return;
+
+            this.item = item;
+            this.capacity = item.info.maxItemsInInventorySlot;
+        } 
+
+        public void Clear()
+        {
+            if (isEmpty) 
+                return;
+
+            item.state.amount = 0;
+            item = null;
+        }
     }
 }

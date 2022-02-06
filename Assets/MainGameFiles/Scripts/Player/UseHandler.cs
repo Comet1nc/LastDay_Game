@@ -1,28 +1,36 @@
-using System.Collections;
-using System.Collections.Generic;
+using MainGameFiles.Scripts.Interfaces;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class UseHandler : MonoBehaviour
+namespace MainGameFiles.Scripts.Player
 {
-    [SerializeField] private Button _useButton;
-
-    private IUseable _objectThatCanUse;
-
-    public Button useButton => _useButton;
-    public IUseable objectThatCanUse { get => _objectThatCanUse; set => _objectThatCanUse = value; }
-
-    private void Start()
+    public class UseHandler : MonoBehaviour
     {
-        _useButton.interactable = false;
-    }
+        [SerializeField] private Button _useButton;
 
-    public void Click()
-    {
-        if (_objectThatCanUse != null)
+        private IUseable _objectThatCanUse;
+        private IPickable _objectThatCanPick;
+
+        public Button useButton => _useButton;
+        public IUseable objectThatCanUse { get => _objectThatCanUse; set => _objectThatCanUse = value; }
+        public IPickable objectThatCanPick { get => _objectThatCanPick; set => _objectThatCanPick = value; }
+
+        private void Start()
         {
-            _objectThatCanUse.Use();
+            _useButton.interactable = false;
         }
-        
+
+        public void Click()
+        {
+            if (_objectThatCanUse != null)
+            {
+                _objectThatCanUse.Use();
+            }
+            if (_objectThatCanPick != null)
+            {
+                _objectThatCanPick.Pick();
+            }
+
+        }
     }
 }

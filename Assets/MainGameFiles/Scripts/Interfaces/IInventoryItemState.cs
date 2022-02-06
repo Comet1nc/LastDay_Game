@@ -1,9 +1,8 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-
-public interface IInventoryItemState
+namespace MainGameFiles.Scripts.Interfaces
 {
-    int amount { get; set; }
-    bool IsEquipped { get; set; }
+    public interface IInventoryItemState
+    {
+        int amount { get; set; }
+        bool IsEquipped { get; set; }
+    }
 }

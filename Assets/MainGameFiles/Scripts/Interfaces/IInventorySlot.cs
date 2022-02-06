@@ -1,30 +1,33 @@
-using System.Collections;
 using System;
+using System.Collections;
 using UnityEngine;
 
-public interface IInventorySlot
+namespace MainGameFiles.Scripts.Interfaces
 {
-    SlotType slotType { get; set; }
-    bool isGunSlot { get; set; }
-    bool isFull { get; }
-    bool isEmpty { get; }
+    public interface IInventorySlot
+    {
+        SlotType slotType { get; set; }
+        bool isGunSlot { get; set; }
+        bool isFull { get; }
+        bool isEmpty { get; }
 
-    IInventoryItem item { get; }
-    Type itemType { get; }
-    int amount { get; }
-    int capacity { get; }
+        IInventoryItem item { get; }
+        Type itemType { get; }
+        int amount { get; }
+        int capacity { get; }
 
-    void SetItem(IInventoryItem item);
-    void Clear();
-}
+        void SetItem(IInventoryItem item);
+        void Clear();
+    }
 
-public enum SlotType // Уникальные обьекты которые не стакаются. // NEVER CHANGE, because this broke inventory !!!!
-{
-    Default,
-    Gun,
-    Backpack,
-    Hat, // Головной убор
-    Shirt, // Верхняя одежда
-    Jeans, // Любые штаны
-    Boots // Любые ботинки
+    public enum SlotType // РЈРЅРёРєР°Р»СЊРЅС‹Рµ РѕР±СЊРµРєС‚С‹ РєРѕС‚РѕСЂС‹Рµ РЅРµ СЃС‚Р°РєР°СЋС‚СЃСЏ. // NEVER CHANGE, because this broke inventory !!!!
+    {
+        Default,
+        Gun,
+        Backpack,
+        Hat, // Р“РѕР»РѕРІРЅРѕР№ СѓР±РѕСЂ
+        Shirt, // Р’РµСЂС…РЅСЏСЏ РѕРґРµР¶РґР°
+        Jeans, // Р›СЋР±С‹Рµ С€С‚Р°РЅС‹
+        Boots // Р›СЋР±С‹Рµ Р±РѕС‚РёРЅРєРё
+    }
 }

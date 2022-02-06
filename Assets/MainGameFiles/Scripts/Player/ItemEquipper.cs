@@ -1,40 +1,42 @@
-using System.Collections;
-using System.Collections.Generic;
+using MainGameFiles.Scripts.Interfaces;
 using UnityEngine;
 
-public class ItemEquipper : MonoBehaviour
+namespace MainGameFiles.Scripts.Player
 {
-    [SerializeField] private Transform _gunParent;
-    [SerializeField] private InventoryManager _inventoryManager;
-
-    private IInventoryItem _gun;
-    private GameObject _gunPrefab;
-    private GameObject _instantiatedGun;
-
-    private void Start()
+    public class ItemEquipper : MonoBehaviour
     {
-        _inventoryManager.inventory.OnItemEquipEvent += EquipOrDeEquipGun;
-    }
+        [SerializeField] private Transform _gunParent;
+        [SerializeField] private InventoryManager _inventoryManager;
 
-    private void OnDisable()
-    {
-        _inventoryManager.inventory.OnItemEquipEvent -= EquipOrDeEquipGun;
-    }
+        private IInventoryItem _gun;
+        private GameObject _gunPrefab;
+        private GameObject _instantiatedGun;
 
-    public void EquipOrDeEquipGun(IInventoryItem gun, bool EquipState)
-    {
-        if(EquipState)
+        private void Start()
         {
-            gun.state.IsEquipped = false;
-            Destroy(_instantiatedGun);
-            return;
+            _inventoryManager.inventory.OnItemEquipEvent += EquipOrDeEquipGun;
         }
 
-        _gun = gun;
-        _gun.state.IsEquipped = true;
-        _gunPrefab = gun.info.prefab;
-        _instantiatedGun = Instantiate(gun.info.prefab, _gunParent);
-        _instantiatedGun.transform.localPosition = new Vector3(0.024f, -0.1f, -0.014f);
-        _instantiatedGun.transform.localRotation = Quaternion.Euler(70.73f, -35.835f, 133.238f);
+        private void OnDisable()
+        {
+            _inventoryManager.inventory.OnItemEquipEvent -= EquipOrDeEquipGun;
+        }
+
+        public void EquipOrDeEquipGun(IInventoryItem gun, bool EquipState)
+        {
+            if(EquipState)
+            {
+                gun.state.IsEquipped = false;
+                Destroy(_instantiatedGun);
+                return;
+            }
+
+            _gun = gun;
+            _gun.state.IsEquipped = true;
+            _gunPrefab = gun.info.prefab;
+            _instantiatedGun = Instantiate(gun.info.prefab, _gunParent);
+            _instantiatedGun.transform.localPosition = new Vector3(0.024f, -0.1f, -0.014f);
+            _instantiatedGun.transform.localRotation = Quaternion.Euler(70.73f, -35.835f, 133.238f);
+        }
     }
 }

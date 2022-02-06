@@ -1,15 +1,16 @@
-using System.Collections;
 using System;
-using UnityEngine;
 
-public interface IInventoryItem
+namespace MainGameFiles.Scripts.Interfaces
 {
-    IInventoryItemState state { get; }
-    IInventoryItemInfo info { get; }
+    public interface IInventoryItem
+    {
+        IInventoryItemState state { get; }
+        IInventoryItemInfo info { get; }
 
-    Type type { get; }
+        Type type { get; }
     
-    IInventoryItem Clone();
+        IInventoryItem Clone();
+    }
 }
 
 
