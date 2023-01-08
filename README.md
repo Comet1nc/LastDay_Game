@@ -1,3 +1,3 @@
 # Game-Unity
 
-All my code you can find in Assets/MainGameFiles/Scripts
+All important code you can find in Assets/MainGameFiles/Scripts
